@@ -1,0 +1,41 @@
+﻿<CascadingValue Value="this">
+    <div class="btn-group" role="group">
+        @foreach (ShipTabPage tabPage in Pages)
+        {
+            <button type="button"
+                class="btn @GetButtonClass(tabPage)"
+                @onclick=@( () => ActivePage = tabPage )>
+                    @tabPage.ShipType
+            </button>
+        }
+    </div>
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment<ShipTabPage> TabTextTemplate { get; set; }
+    public ShipTabPage ActivePage { get; set; }
+    List<ShipTabPage> Pages = new List<ShipTabPage>();
+    
+    internal void AddPage(ShipTabPage tabPage)
+    {
+        Pages.Add(tabPage);
+        if(Pages.Count == 1)
+            ActivePage = tabPage;
+
+        StateHasChanged();
+    }
+
+    private string GetButtonClass(ShipTabPage page)
+        => page == ActivePage
+        ? "btn-primary"
+        : "btn-secondary";
+
+    void ActivatePage(ShipTabPage page)
+    {
+        ActivePage = page;
+    }
+}

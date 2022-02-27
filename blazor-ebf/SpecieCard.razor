@@ -1,0 +1,17 @@
+﻿@using EclipseBattleForecaster.Common;
+
+<SpecieTabControl>
+    @foreach (SpecieType specie in Enum.GetValues(typeof(SpecieType)))
+    {
+        <SpecieTabPage SpecieType=@specie />
+    }
+</SpecieTabControl>
+
+@code
+{
+    [Parameter]
+    public IEnumerable<Specie> Species { get; set; }
+
+    [Parameter]
+    public EventCallback<IEnumerable<Specie>> SpeciesChanged { get; set; }
+}

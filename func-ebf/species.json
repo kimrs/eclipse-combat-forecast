@@ -1,0 +1,78 @@
+[
+  {
+    "SpecieType": 0,
+    "Ships": [
+      {
+        "ShipType": 0,
+        "Components": [
+          "PlasmaCannon",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      },
+      {
+        "ShipType": 1,
+        "Components": [
+          "PlasmaCannon",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      },
+      {
+        "ShipType": 2,
+        "Components": [
+          "PlasmaCannon",
+          "PlasmaCannon",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      }
+    ]
+  },
+  {
+    "SpecieType": 1,
+    "Ships": [
+      {
+        "ShipType": 0,
+        "Components": [
+          "IonCannon",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      },
+      {
+        "ShipType": 1,
+        "Components": [
+          "IonCannon",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      },
+      {
+        "ShipType": 2,
+        "Components": [
+          "PlasmaCannon",
+          "IonCannon",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty",
+          "Empty"
+        ]
+      }
+    ]
+  }
+]

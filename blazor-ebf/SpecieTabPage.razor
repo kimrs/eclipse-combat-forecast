@@ -1,0 +1,44 @@
+﻿@using System.Text.Json;
+@using EclipseBattleForecaster.Common;
+
+@inject ISpecieService specieService;
+
+@if (Parent.ActivePage == this)
+{
+    <ShipControl>
+        @foreach (ShipType ship in _shipTypes)
+        {
+            <ShipTabPage ShipType=ship SpecieType=SpecieType />
+        }
+    </ShipControl>
+}
+
+@code {
+    private IEnumerable<ShipType> _shipTypes { get; set; }
+
+    [CascadingParameter]
+    private SpecieTabControl Parent { get; set; }
+
+    [Parameter]
+    public SpecieType SpecieType { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Converters = 
+            {
+                new ShipComponentJsonConverter()
+            }
+        };
+
+        _shipTypes = await specieService.GetShipTypes(SpecieType);
+        
+        if(Parent == null)
+            throw new ArgumentNullException(nameof(Parent), "TabPage must exist within a tabControl");
+
+        base.OnInitialized();
+        Parent.AddPage(this);
+    }
+}

@@ -1,0 +1,17 @@
+GET http://localhost:7071/api/Session/42
+Content-Type: application/json
+
+{
+    "name": "Azure"
+}
+
+###
+POST http://localhost:7071/api/Session
+Content-Type: application/json
+
+{
+    "name": "Azure"
+}
+
+###
+GET http://func-ebf.azurewebsites.net/api/GetSpecies

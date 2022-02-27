@@ -1,0 +1,60 @@
+﻿@using Microsoft.Extensions.Logging;
+@using EclipseBattleForecaster.Common;
+@inject ISpecieService SpecieService
+
+@if (Parent.ActivePage == this)
+{
+    <ul>
+        @foreach(var component in _components)
+        {
+            <li>
+                @component.Value.ToString()
+                <EditForm Model="this">
+                    <InputSelect @bind-Value=component.Value @onchange=UpdateShipComponent>
+                        @foreach (var comp in ShipComponent.All)
+                        {
+                            <option>@comp.ToString()</option>
+                        }
+                    </InputSelect>
+                </EditForm>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    
+    [CascadingParameter]
+    private ShipControl Parent { get; set; }
+
+    [Parameter]
+    public ShipType ShipType { get; set; }
+
+    [Parameter]
+    public SpecieType SpecieType { get; set; }
+
+    private ShipComponent ComponentType { get; set; }
+
+    private IEnumerable<ShipComponentWrapper> _components;
+
+    private void UpdateShipComponent(ChangeEventArgs e)
+    {
+        if(e.Value is ShipComponentWrapper component)
+            _components.First(x => x.Index == component.Index).Value = component.Value;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(Parent == null)
+            throw new ArgumentNullException(nameof(Parent), "TabPage must exist within a tabControl");
+        
+        @* var components = (await SpecieService.GetComponents(SpecieType, ShipType)); *@
+        _components = (await SpecieService.GetComponents(SpecieType, ShipType)).Select((x, y) => new ShipComponentWrapper(){ Value = x as ShipComponent, Index = y });
+
+        ComponentType = ShipComponent.All.First();
+
+        Console.WriteLine($"ShipTabPage for {SpecieType} {ShipType}");
+        base.OnInitialized();
+        Parent.AddPage(this);
+    }
+}
